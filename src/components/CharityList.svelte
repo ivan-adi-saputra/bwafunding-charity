@@ -64,7 +64,7 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">{charity.title}</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">{charity.title }</h5>
                                     <button 
                                     type="button" 
                                     class="close" 
@@ -141,13 +141,13 @@
     
                             <span class="xs-separetor"></span>
     
-                            <button
-                            data-toggle="modal" 
-                            on:click={handleButton}
+                            <a
+                            href="/donation/{charity.id}"
+                            data-toggle="modal"  
                             data-target="#exampleModal" 
                             class="btn btn-primary btn-block">
                                 Donate This Cause
-                            </button>
+                        </a>
                         </div><!-- .xs-item-content END -->
                     </div><!-- .xs-popular-item END -->
                 </div>
