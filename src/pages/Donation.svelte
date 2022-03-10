@@ -7,7 +7,15 @@
 	import Loader from '../components/Loader.svelte';
 	 
 	 
-	let   amount, name, email, agree = false; 
+	let   amount = 0, 
+		  name, 
+		  email, 
+		  agree = false,
+		  contribute = 0; 
+
+	$: if($charity) {
+		contribute = Math.floor((parseInt(amount) / $charity.target) *100);
+	}
 
 	getCharity($params.id);
 	 
@@ -17,6 +25,7 @@
 	}
 
 	async function handleForm(event) {  
+		agree = false;
 		charity.pledged = charity.pledged + parseInt(amount);
 		try{
 			const res = await fetch(`https://charity-api-bwa.herokuapp.com/charities/${$params.id}`, 
@@ -103,7 +112,9 @@
 	<p class="small">To learn more about make donate charity
 	with us visit our "<span class="color-green">Contact
 	us</span>" site. By calling <span class=
-	"color-green">+44(0) 800 883 8450</span>.</p><span class=
+	"color-green">+44(0) 800 883 8450</span>.</p>
+	<h5>Your Donation Will Be Contributting <strong>{contribute}%</strong> Of Total Current Donation</h5>
+	<span class=
 	"xs-separetor v2"></span>
 	</div><!-- .xs-heading end -->
 	 <!--Form-->

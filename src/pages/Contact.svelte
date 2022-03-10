@@ -1,10 +1,11 @@
 <script>
-    import Header from '../components/Header.svelte'
-    import Footer from '../components/Footer.svelte'
+    import Header from '../components/Header.svelte';
+    import Footer from '../components/Footer.svelte';
+	import Map from '../components/Map.svelte';
 
-    google.maps.event.addDomListener(window, 'load', init);
+	google.maps.event.addDomListener(window, 'load', init);
 
-    function init() {
+	function init() {
 	// Basic options for a simple Google Map
 	
 	var mapOptions = {
@@ -24,7 +25,7 @@
 		// This is where you would paste any style found on Snazzy Maps.
 		styles: [{"featureType":"administrative","elementType":"all","stylers":[{"saturation":"-100"}]},{"featureType":"administrative.province","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"landscape","elementType":"all","stylers":[{"saturation":-100},{"lightness":65},{"visibility":"on"}]},{"featureType":"poi","elementType":"all","stylers":[{"saturation":-100},{"lightness":"50"},{"visibility":"simplified"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":"-100"}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"all","stylers":[{"lightness":"30"}]},{"featureType":"road.local","elementType":"all","stylers":[{"lightness":"40"}]},{"featureType":"transit","elementType":"all","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"water","elementType":"geometry","stylers":[{"hue":"#ffff00"},{"lightness":-25},{"saturation":-97}]},{"featureType":"water","elementType":"labels","stylers":[{"lightness":-25},{"saturation":-100}]}]
 	};
-
+``
 	// Get the HTML DOM element that will contain your map 
 	// We are using a div with id="map" seen below in the <body>
 	var mapElement = document.getElementById('xs-map');
@@ -39,7 +40,15 @@
 		title: 'Snazzy!'
 	});
 }
+
+    export let ready;
+	
 </script>
+
+<svelte:head>
+	<script defer async src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCy7becgYuLwns3uumNm6WdBYkBpLfy44k&callback=initMap"></script>
+</svelte:head>
+
 <Header />
 <!-- welcome section -->
 <!--breadcumb start here-->
@@ -50,7 +59,7 @@
 			<h2>Contact Us</h2>
 			<p>Give a helping hand for poor people</p>
 			<ul class="xs-breadcumb">
-				<li class="badge badge-pill badge-primary"><a href="index.html" class="color-white"> Home /</a> Contact</li>
+				<li class="badge badge-pill badge-primary"><a href="/" class="color-white"> Home /</a> Contact</li>
 			</ul>
 		</div>
 	</div>
@@ -92,8 +101,11 @@
 				</div>
 				<div class="col-lg-6">
 					<div class="xs-maps-wraper map-wraper-v2">
-						<div id="xs-map" class="xs-box-shadow-2"></div>
+						<div id="xs-map" class="xs-box-shadow-2" />
 					</div>
+					{#if ready}
+						<Map />
+					{/if}
 				</div>
 			
 			</div><!-- .row end -->
